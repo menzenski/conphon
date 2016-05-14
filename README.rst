@@ -77,7 +77,7 @@ Overview
 
 A package for applying sound change rules to linguistic data.
 
-* Free software: BSD license
+* Free software: MIT license
 
 Installation
 ============
