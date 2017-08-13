@@ -1,45 +1,12 @@
 language: python
-python: '3.5'
-sudo: false
+python:
+  - "3.5"
+  - "3.6"
 env:
   global:
-    - LD_PRELOAD=/lib/x86_64-linux-gnu/libSegFault.so
-    - SEGFAULT_SIGNALS=all
-  matrix:
-    - TOXENV=check
-    - TOXENV=docs
-
-    - TOXENV=py27-cover,coveralls,codecov
-    - TOXENV=py27-nocov
-    - TOXENV=py33-cover,coveralls,codecov
-    - TOXENV=py33-nocov
-    - TOXENV=py34-cover,coveralls,codecov
-    - TOXENV=py34-nocov
-    - TOXENV=py35-cover,coveralls,codecov
-    - TOXENV=py35-nocov
-    - TOXENV=pypy-cover,coveralls,codecov
-    - TOXENV=pypy-nocov
-before_install:
-  - python --version
-  - uname -a
-  - lsb_release -a
-install:
-  - pip install tox
-  - virtualenv --version
-  - easy_install --version
-  - pip --version
-  - tox --version
-script:
-  - tox -v
-after_failure:
-  - more .tox/log/* | cat
-  - more .tox/*/log/* | cat
-before_cache:
-  - rm -rf $HOME/.cache/pip/log
-cache:
-  directories:
-    - $HOME/.cache/pip
-notifications:
-  email:
-    on_success: never
-    on_failure: always
+    - PIPENV_VENV_IN_PROJECT=1
+    - PIPENV_IGNORE_VIRTUALENVS=1
+# command to install dependencies
+install: make setup
+# # command to run tests
+script: make test
